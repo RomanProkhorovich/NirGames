@@ -29,4 +29,8 @@ public class GameService {
         return repository.save(game);
     }
 
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
+
 }

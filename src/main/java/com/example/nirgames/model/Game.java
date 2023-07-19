@@ -1,12 +1,18 @@
 package com.example.nirgames.model;
 
 import jakarta.persistence.*;
+
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.time.Year;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
+
+/**
+ * Класс-сущность, который представляет собой игру
+ */
 
 @Getter
 @Setter
@@ -20,27 +26,39 @@ public class Game {
     @Column(name = "id")
     private Long id;
 
+    /**
+     * поля с названием игры. должно быть уникальным. также по этому полю определен equals
+     */
     @Column(unique = true, nullable = false)
     private String title;
 
     @Column(nullable = false)
     private Year releasedAt;
 
-    @OneToMany()
-    @JoinColumn(name = "game_id")
+    @ManyToMany(cascade = { CascadeType.MERGE})
+    @JoinTable(name = "game_genres",
+            joinColumns = @JoinColumn(name = "game_id",nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "genres_id",nullable = false))
     private Set<Genre> genres = new LinkedHashSet<>();
 
+    @ManyToOne(cascade = { CascadeType.MERGE})
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
+
+    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @JoinColumn(name = "game_id")
+    private Set<DeveloperStudio> developerStudios = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Game game = (Game) o;
-        return title.equals(game.title);
+        return id != null && Objects.equals(id, game.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title);
+        return getClass().hashCode();
     }
 }

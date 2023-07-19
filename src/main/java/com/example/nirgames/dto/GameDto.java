@@ -1,5 +1,6 @@
 package com.example.nirgames.dto;
 
+import com.example.nirgames.model.DeveloperStudio;
 import com.example.nirgames.model.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,10 +16,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class GameDto {
-
     private Long id;
     private String title;
     private Year releasedAt;
-    private Set<Genre> genres = new LinkedHashSet<>();
-
+    private Set<GenreDto> genres = new LinkedHashSet<>();
+    private PublisherDto publisherDto;
+    private Set<DeveloperStudioDro> developerStudios = new LinkedHashSet<>();
 }
