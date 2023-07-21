@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Year;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -23,5 +24,18 @@ public class DeveloperStudio {
     public DeveloperStudio(@NonNull String studioName, Year creationAt) {
         this.studioName = studioName;
         this.creationAt = creationAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeveloperStudio that = (DeveloperStudio) o;
+        return studioName.equals(that.studioName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studioName);
     }
 }

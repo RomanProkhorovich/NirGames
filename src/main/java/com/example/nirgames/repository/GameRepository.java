@@ -13,4 +13,6 @@ public interface GameRepository extends JpaRepository<Game,Long> {
     Optional<Game> findByTitle(String title);
 
     List<Game> findAllByPublisher(Publisher publisher);
+
+
 }

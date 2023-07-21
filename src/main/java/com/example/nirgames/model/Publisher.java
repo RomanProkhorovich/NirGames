@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,13 +19,6 @@ public class Publisher {
     @Column(nullable = false, unique = true)
     private String name;
 
-/*    @OneToMany(mappedBy = "publisher")
-    private Set<Game> games = new LinkedHashSet<>();*/
-
-    public Publisher(String name, Set<Game> games) {
-        this.name = name;/*
-        this.games = games;*/
-    }
 
     public Publisher(String name) {
         this.name = name;

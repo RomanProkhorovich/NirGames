@@ -45,9 +45,12 @@ public class Game {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "game_id")
     private Set<DeveloperStudio> developerStudios = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.MERGE)
+    private Set<Comment> comments = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {

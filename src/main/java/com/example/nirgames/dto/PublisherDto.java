@@ -1,14 +1,10 @@
 package com.example.nirgames.dto;
 
-import com.example.nirgames.model.Game;
-import jakarta.persistence.*;
+import lombok.Data;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
+@Data
 public class PublisherDto {
 
     private Long id;
     private String name;
-    private Set<GameDto> games = new LinkedHashSet<>();
 }

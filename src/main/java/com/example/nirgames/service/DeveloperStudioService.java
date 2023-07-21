@@ -23,7 +23,7 @@ public class DeveloperStudioService {
         return  developerStudioRepository.findAll();
     }
     public DeveloperStudio save(DeveloperStudio studio){
-        return  developerStudioRepository.save(studio);
+         return developerStudioRepository.save(studio);
     }
     public void delete(Long id){
         developerStudioRepository.deleteById(id);
