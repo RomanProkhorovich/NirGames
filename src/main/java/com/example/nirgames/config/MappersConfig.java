@@ -1,10 +1,8 @@
 package com.example.nirgames.config;
 
-import com.example.nirgames.dto.GameDto;
-import com.example.nirgames.dto.GenreDto;
+import com.example.nirgames.dto.*;
 import com.example.nirgames.mapper.Mapper;
-import com.example.nirgames.model.Game;
-import com.example.nirgames.model.Genre;
+import com.example.nirgames.model.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -48,4 +46,127 @@ public class MappersConfig {
         return genre->
                 new Genre(genre.getId(),genre.getTitle());
     }
+
+
+    @Bean
+    public Mapper<Comment, CommentDto> commentToCommentDtoMapper(Mapper<Customer, CustomerDto> customerToDtoMapper) {
+        return comment->
+                CommentDto.builder()
+                        .customer(customerToDtoMapper.map(comment.getCustomer()))
+                        .text(comment.getText())
+                        .id(comment.getId())
+                        .build();
+    }
+
+    @Bean
+    public Mapper<CommentDto,Comment> commentDtoToCommentMapper(Mapper<CustomerDto, Customer> customerMapper){
+        return dto->
+                Comment.builder()
+                        .text(dto.getText())
+                        .customer(customerMapper.map(dto.getCustomer()))
+                        .id(dto.getId())
+                        .build();
+    }
+
+    @Bean
+    public Mapper<CustomerDto,Customer> customerDtoMapper(Mapper<GameDto,Game> gameMapper){
+        return obj->
+            Customer.builder()
+                    .id(obj.getId())
+                    .username(obj.getUsername())
+                    .favoriteGames(obj.getFavoriteGames()
+                            .stream()
+                            .map(gameMapper::map)
+                            .collect(Collectors.toSet()))
+                    .build();
+
+    }
+
+    @Bean
+    public Mapper<Customer,CustomerDto> customerToDtoMapper(Mapper<Game,GameDto> gameMapper){
+        return obj->
+                CustomerDto.builder()
+                        .id(obj.getId())
+                        .username(obj.getUsername())
+                        .favoriteGames(obj.getFavoriteGames()
+                                .stream()
+                                .map(gameMapper::map)
+                                .collect(Collectors.toSet()))
+                        .build();
+
+    }
+
+    @Bean
+    public Mapper<DeveloperStudioDto,DeveloperStudio> developerStudioMapper(){
+        return obj->
+                DeveloperStudio.builder()
+                        .studioName(obj.getStudioName())
+                        .creationAt(obj.getCreationAt())
+                        .id(obj.getId())
+                        .build();
+    }
+
+    @Bean
+    public Mapper<DeveloperStudio,DeveloperStudioDto> developerStudioDtoMapper(){
+        return obj->
+                DeveloperStudioDto.builder()
+                        .studioName(obj.getStudioName())
+                        .creationAt(obj.getCreationAt())
+                        .id(obj.getId())
+                        .build();
+    }
+
+    @Bean
+    public Mapper<Publisher,PublisherDto> publisherPublisherDtoMapper(){
+        return obj->
+                PublisherDto.builder()
+                        .id(obj.getId())
+                        .name(obj.getName())
+                        .build();
+    }
+    @Bean
+    public Mapper<PublisherDto,Publisher> publisherDtoPublisherMapper(){
+        return obj->
+                Publisher.builder()
+                        .id(obj.getId())
+                        .name(obj.getName())
+                        .build();
+    }
+
+    @Bean
+    public Mapper<Review,ReviewDto> reviewReviewDtoMapper(Mapper<Customer,CustomerDto> customerMapper,
+                                                          Mapper<Comment,CommentDto> commentMapper,
+                                                          Mapper<Game,GameDto> gameMapper){
+        return obj->
+                ReviewDto.builder()
+                        .author(customerMapper.map(obj.getAuthor()))
+                        .comments(obj.getComments()
+                                .stream()
+                                .map(commentMapper::map)
+                                .collect(Collectors.toSet()))
+                        .game(gameMapper.map(obj.getGame()))
+                        .id(obj.getId())
+                        .title(obj.getTitle())
+                        .text(obj.getText())
+                        .build();
+    }
+    @Bean
+    public Mapper<ReviewDto,Review> reviewDtoReviewMapper(Mapper<CustomerDto,Customer> customerMapper,
+                                                          Mapper<CommentDto,Comment> commentMapper,
+                                                          Mapper<GameDto,Game> gameMapper){
+        return obj->
+                Review.builder()
+                        .author(customerMapper.map(obj.getAuthor()))
+                        .comments(obj.getComments()
+                                .stream()
+                                .map(commentMapper::map)
+                                .collect(Collectors.toSet()))
+                        .game(gameMapper.map(obj.getGame()))
+                        .id(obj.getId())
+                        .title(obj.getTitle())
+                        .text(obj.getText())
+                        .build();
+    }
 }
+
+

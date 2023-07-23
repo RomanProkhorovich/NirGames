@@ -10,6 +10,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class DeveloperStudio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

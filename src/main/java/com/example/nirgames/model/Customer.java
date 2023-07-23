@@ -2,6 +2,8 @@ package com.example.nirgames.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchProfile;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -19,6 +21,17 @@ public class Customer {
     @Column(name = "id", nullable = false)
     private Long id;
 
+
+    @NonNull
+    @Column(nullable = false)
+    private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "customer_roles",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id"))
+    private Set<Role> roles = new LinkedHashSet<>();
+
     @NonNull
     @Column(unique = true,nullable = false)
     private String username;
@@ -26,9 +39,6 @@ public class Customer {
     @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "customer_id")
     private Set<Game> favoriteGames = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
-    private Set<Comment> comments = new LinkedHashSet<>();
 
 
     @Override

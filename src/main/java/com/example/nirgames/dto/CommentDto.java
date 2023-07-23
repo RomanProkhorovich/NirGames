@@ -1,5 +1,6 @@
 package com.example.nirgames.dto;
 
+import com.example.nirgames.model.Review;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,5 +10,4 @@ public class CommentDto {
     private Long id;
     private String text;
     private CustomerDto customer;
-    private GameDto game;
 }

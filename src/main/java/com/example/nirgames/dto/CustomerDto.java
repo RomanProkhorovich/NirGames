@@ -12,5 +12,4 @@ public class CustomerDto {
     private Long id;
     private String username;
     private Set<GameDto> favoriteGames = new LinkedHashSet<>();
-
 }

@@ -3,15 +3,21 @@ package com.example.nirgames.service;
 import com.example.nirgames.model.Customer;
 import com.example.nirgames.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerService {
-    private CustomerRepository customerRepository;
+public class CustomerService implements UserDetailsService {
+    private final CustomerRepository customerRepository;
 
     public Optional<Customer> findByUsername(String username){
         return customerRepository.findByUsername(username);
@@ -30,4 +36,19 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        var user=this.findByUsername(username).orElseThrow(()->
+                new UsernameNotFoundException(String.format("User %s not found", username)));
+
+        var roles=user.getRoles();
+        var authorities= roles.stream()
+                .map(x->new SimpleGrantedAuthority(x.getRole())).toList();
+
+        return  User.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .authorities(authorities)
+                .build();
+    }
 }

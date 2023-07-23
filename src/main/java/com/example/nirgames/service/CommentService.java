@@ -25,9 +25,6 @@ public class CommentService {
     public List<Comment> findAll(){
         return commentRepository.findAll();
     }
-    public Set<Comment> findByGame(Game game){
-        return commentRepository.findAllByGame(game);
-    }
 
     public Comment save(Comment comment){
         return commentRepository.save(comment);

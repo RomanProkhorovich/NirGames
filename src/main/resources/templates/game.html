@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game</title>
+</head>
+<body>
+<h1>
+    ID: <span th:text="${gameDto.getId()}"></span><br>
+    Title: <span th:text="${gameDto.getTitle()}"></span><br>
+    Developers: <span th:text="${gameDto.getDeveloperStudios()}"></span><br>
+    Publisher: <span th:text="${gameDto.getPublisherDto()}"></span><br>
+    Release Date: <span th:text="${gameDto.getReleasedAt()}"></span><br>
+    Genres: <br>
+</h1>
+<table>
+    <th:block th:each="genre : ${gameDto.getGenres()}">
+        <h2 th:text="${genre.getTitle()}"></h2>
+    </th:block>
+</table>
+</body>
+</html>

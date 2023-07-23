@@ -26,10 +26,6 @@ public class Comment {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @NonNull
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "game_id")
-    private Game game;
 
     @Override
     public boolean equals(Object o) {

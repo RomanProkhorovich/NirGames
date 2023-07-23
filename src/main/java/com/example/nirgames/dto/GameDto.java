@@ -15,5 +15,5 @@ public class GameDto {
     private Year releasedAt;
     private Set<GenreDto> genres = new LinkedHashSet<>();
     private PublisherDto publisherDto;
-    private Set<DeveloperStudioDro> developerStudios = new LinkedHashSet<>();
+    private Set<DeveloperStudioDto> developerStudios = new LinkedHashSet<>();
 }

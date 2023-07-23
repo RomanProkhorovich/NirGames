@@ -11,5 +11,4 @@ import java.util.Set;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment,Long> {
     Set<Comment> findAllByCustomer (Customer customer);
-    Set<Comment> findAllByGame(Game game);
 }

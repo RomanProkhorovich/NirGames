@@ -1,41 +1,41 @@
 package com.example.nirgames.model;
 
+
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
 
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class Publisher {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @Column(nullable = false,unique = true)
+    private String role;
 
-
-    public Publisher(String name) {
-        this.name = name;
+    public Role(String role) {
+        this.role = role;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Publisher publisher = (Publisher) o;
-        return name.equals(publisher.name);
+        Role role1 = (Role) o;
+        return role.equals(role1.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(role);
+    }
+
+    public Role() {
+
+
     }
 }
