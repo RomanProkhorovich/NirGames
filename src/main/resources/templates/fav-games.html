@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorite games</title>
+</head>
+<body>
+
+<th:block th:each="game: ${model}">
+  <h2 th:text="${game.getTitle()}"></h2>
+  <p th:text="${game.getReleasedAt()}"></p>
+  <p th:text="${game.getPublisherDto().getName()}"></p>
+  <br>
+</th:block>
+
+</body>
+</html>

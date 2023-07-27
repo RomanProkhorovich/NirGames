@@ -1,21 +1,26 @@
 package com.example.nirgames.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import com.example.nirgames.exceptions.ArgNotFoundException;
+import com.example.nirgames.exceptions.ReviewNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.naming.AuthenticationException;
 import java.util.NoSuchElementException;
 
 @ControllerAdvice
-
 public class ErrorController {
-    @ExceptionHandler(NoSuchElementException.class)
-    public String elementNotFound(NoSuchElementException e, Model model){
 
-        model.addAttribute("ex",e.getMessage());
+    @ExceptionHandler({ArgNotFoundException.class,
+            AuthenticationException.class,
+            NoSuchElementException.class,
+            ReviewNotFoundException.class,
+            UsernameNotFoundException.class})
+    public String argException(Exception e,
+                                 Model model) {
+        model.addAttribute("ex", e.getMessage());
         return "exc";
     }
 }

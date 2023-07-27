@@ -5,6 +5,10 @@
     <title>Comments</title>
 </head>
 <body>
-
+<th:block th:each="comment: ${comments}">
+    <h2 th:text="${comment.getCustimerDto().getName()}"></h2>
+    <h2 th:text="${comment.getText()}"></h2>
+    <br>
+</th:block>
 </body>
 </html>

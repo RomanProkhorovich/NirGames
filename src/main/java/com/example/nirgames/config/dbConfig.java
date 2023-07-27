@@ -1,8 +1,6 @@
 package com.example.nirgames.config;
 
 import com.example.nirgames.model.*;
-import com.example.nirgames.repository.PublisherRepository;
-import com.example.nirgames.repository.ReviewRepository;
 import com.example.nirgames.repository.RoleRepository;
 import com.example.nirgames.service.*;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.Year;
-import java.util.*;
+import java.util.Set;
 
 @Configuration
 @RequiredArgsConstructor
@@ -27,7 +25,7 @@ public class dbConfig {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Bean
-    public void initGenres(){
+    public void initGenres() {
         genreService.save(new Genre("Action"));
         genreService.save(new Genre("RPG"));
         genreService.save(new Genre("Rogue-like"));
@@ -37,7 +35,7 @@ public class dbConfig {
     }
 
     @Bean
-    public void initDeveloperStudio(){
+    public void initDeveloperStudio() {
         developerStudioService.save(DeveloperStudio.builder()
                 .studioName("FromSoftware")
                 .creationAt(Year.of(1986))
@@ -66,7 +64,7 @@ public class dbConfig {
     }
 
     @Bean
-    public void initPublisher(){
+    public void initPublisher() {
         publisherService.save(Publisher.builder()
                 .name("Ubisoft").build());
 
@@ -83,8 +81,9 @@ public class dbConfig {
         publisherService.save(Publisher.builder()
                 .name("CD Project Red").build());
     }
+
     @Bean
-    public void initGames(){
+    public void initGames() {
         gameService.save(Game.builder()
                 .title("Witcher 3")
                 .releasedAt(Year.of(2015))
@@ -131,12 +130,13 @@ public class dbConfig {
     }
 
     @Bean
-    public void initRoles(){
+    public void initRoles() {
         roleRepository.save(new Role("ROLE_ADMIN"));
 
     }
+
     @Bean
-    public void initCustomer(){
+    public void initCustomer() {
         customerService.save(Customer.builder()
                 .username("Roma")
                 .favoriteGames(Set.of(
@@ -157,8 +157,9 @@ public class dbConfig {
                 .password(passwordEncoder.encode("12345"))
                 .build());
     }
+
     @Bean
-    public void initReview(){
+    public void initReview() {
         reviewService.save(Review.builder()
                 .author(customerService.findByUsername("Roma").get())
                 .game(gameService.findByTitle("Witcher 3").get())

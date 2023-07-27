@@ -5,6 +5,9 @@
     <title th:text="${rev.getTitle() }"></title>
 </head>
 <body>
-
+<h1 th:text="${rev.getTitle()}"></h1>
+<p th:text="${rev.getAuthor().getUsername()}"></p>
+<p th:text="${rev.getGame().getTitle()}"></p>
+<p th:text="${rev.getText()}"></p>
 </body>
 </html>

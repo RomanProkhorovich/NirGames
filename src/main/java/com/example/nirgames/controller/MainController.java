@@ -11,34 +11,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping({"/"})
 public class MainController {
     private final GameService gameService;
     private final Mapper<Game, GameDto> gameMapper;
 
-    /*@GetMapping
-    public String sayHello(){
-
-        return "hello";
-    }
-    */
     @GetMapping
     public String findAll(Model model) {
         var allGame = gameService.findAll();
         var allDto = allGame.stream()
                 .map(gameMapper::map)
                 .collect(Collectors.toList());
-        model.addAllAttributes(allDto);
+        model.addAttribute("model", allDto);
         return "all-games";
     }
 
-    @GetMapping("{title}")
+    @GetMapping("/games/{title}")
     public String findByTitle(@PathVariable String title, Model model) {
         Game gameByTitle = gameService.findByTitle(title)
                 .orElseThrow(() -> new NoSuchElementException("что то пошло не так." +
@@ -49,5 +42,4 @@ public class MainController {
         model.addAttribute("gameDto", gameDto);
         return "game";
     }
-
 }

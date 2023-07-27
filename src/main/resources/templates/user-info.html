@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <title>user info</title>
+</head>
+<body>
+<!--<h2>Hello,</h2>
+<h1 th:text="${user.getUsername()}"></h1>
+<h1 th:text="${user.getFavoriteGames()}"></h1>
+<a href="/">all games</a>-->
+
+<a href="javascript: document.logoutForm.submit()" role="button"> Logout</a>
+
+<form name="logoutForm" method="post" th:action="@{/sec/logout}">
+</form>
+
+</body>
+</html>

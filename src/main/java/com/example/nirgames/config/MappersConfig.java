@@ -11,19 +11,27 @@ import java.util.stream.Collectors;
 @Configuration
 public class MappersConfig {
     @Bean
-    public Mapper<GameDto, Game> gameDtoToGameMapper(Mapper<GenreDto,Genre> dtoToGenre){
+    public Mapper<GameDto, Game> gameDtoToGameMapper(Mapper<GenreDto,Genre> dtoToGenre,
+                                                     Mapper<PublisherDto,Publisher> publisherMapper,
+                                                     Mapper<DeveloperStudioDto,DeveloperStudio> developerStudioMapper){
         return obj -> Game.builder()
                 .genres(obj.getGenres()
                         .stream()
                         .map(dtoToGenre::map)
                         .collect(Collectors.toSet()))
                 .id(obj.getId())
+                .publisher(publisherMapper.map(obj.getPublisherDto()))
                 .releasedAt(obj.getReleasedAt())
+                .developerStudios(obj.getDeveloperStudios().stream()
+                        .map(developerStudioMapper::map)
+                        .collect(Collectors.toSet()))
                 .title(obj.getTitle())
                 .build();
     }
     @Bean
-    public Mapper<Game,GameDto> gameToGameDtoMapper(Mapper<Genre, GenreDto> genreToDto){
+    public Mapper<Game,GameDto> gameToGameDtoMapper(Mapper<Genre, GenreDto> genreToDto,
+                                                    Mapper<Publisher,PublisherDto> publisherMapper,
+                                                    Mapper<DeveloperStudio,DeveloperStudioDto> developerStudioDtoMapper){
         return obj -> GameDto.builder()
                 .genres(obj.getGenres()
                         .stream()
@@ -32,6 +40,10 @@ public class MappersConfig {
                 .id(obj.getId())
                 .releasedAt(obj.getReleasedAt())
                 .title(obj.getTitle())
+                .developerStudios(obj.getDeveloperStudios().stream()
+                        .map(developerStudioDtoMapper::map)
+                        .collect(Collectors.toSet()))
+                .publisherDto(publisherMapper.map(obj.getPublisher()))
                 .build();
     }
 

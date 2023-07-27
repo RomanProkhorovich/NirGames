@@ -7,6 +7,10 @@
 <body>
 <th:block th:each="rev: ${model}">
     <h2 th:text="${rev.getTitle()}"></h2>
+    <b>
+        <p th:text="@{rev.getText()}"></p>
+    </b>
+    <br>
 </th:block>
 </body>
 </html>
