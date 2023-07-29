@@ -37,6 +37,7 @@ public class securityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(x -> x
+                        .requestMatchers("/registration").permitAll()
                         .anyRequest().authenticated())
                 .logout(x -> x.permitAll()
                         .logoutUrl("/sec/logout"))

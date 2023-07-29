@@ -132,6 +132,7 @@ public class dbConfig {
     @Bean
     public void initRoles() {
         roleRepository.save(new Role("ROLE_ADMIN"));
+        roleRepository.save((new Role("ROLE_USER")));
 
     }
 

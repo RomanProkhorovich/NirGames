@@ -4,6 +4,7 @@ import com.example.nirgames.dto.GameDto;
 import com.example.nirgames.mapper.Mapper;
 import com.example.nirgames.model.Game;
 import com.example.nirgames.service.GameService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +32,8 @@ public class MainController {
         return "all-games";
     }
 
-    @GetMapping("/games/{title}")
-    public String findByTitle(@PathVariable String title, Model model) {
+    @GetMapping("/games")
+    public String findByTitle(@PathParam("title") String title, Model model) {
         Game gameByTitle = gameService.findByTitle(title)
                 .orElseThrow(() -> new NoSuchElementException("что то пошло не так." +
                         " возможно такой игры мы еще не знаем." +

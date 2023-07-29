@@ -5,7 +5,7 @@
     <title>All games</title>
 </head>
 <body>
-<a href="/user">user info</a>
+<div th:insert="nav::navbar"></div>
 <th:block th:each="game: ${model}">
     <h2 th:text="${game.getTitle()}"></h2>
     <p th:text="${game.getReleasedAt()}"></p>

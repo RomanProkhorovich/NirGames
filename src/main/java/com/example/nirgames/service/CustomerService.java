@@ -35,6 +35,9 @@ public class CustomerService implements UserDetailsService {
     public void delete(Long id){
         customerRepository.deleteById(id);
     }
+    public boolean isUniqueCustomer(String username){
+        return !customerRepository.existsCustomersByUsername(username);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -51,4 +54,5 @@ public class CustomerService implements UserDetailsService {
                 .authorities(authorities)
                 .build();
     }
+
 }
