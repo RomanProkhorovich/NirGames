@@ -13,6 +13,7 @@ public class ReviewDto {
     private String text;
     private GameDto game;
     private CustomerDto author;
+    @Builder.Default
     private Set<CommentDto> comments = new LinkedHashSet<>();
     private String title;
 }

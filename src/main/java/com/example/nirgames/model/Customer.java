@@ -27,6 +27,7 @@ public class Customer {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @Builder.Default
     @JoinTable(name = "customer_roles",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
@@ -38,6 +39,7 @@ public class Customer {
 
     @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "customer_id")
+    @Builder.Default
     private Set<Game> favoriteGames = new LinkedHashSet<>();
 
 

@@ -33,6 +33,7 @@ public class Review {
     @JoinColumn(name = "author_id")
     private Customer author;
 
+    @Builder.Default
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "review_id")
     private Set<Comment> comments = new LinkedHashSet<>();

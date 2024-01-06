@@ -9,7 +9,6 @@ import java.time.Year;
 @Builder
 public class DeveloperStudioDto {
     private Long id;
-
     private String studioName;
     private Year creationAt;
 }

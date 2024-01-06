@@ -35,6 +35,7 @@ public class Game {
     @Column(nullable = false)
     private Year releasedAt;
 
+    @Builder.Default
     @ManyToMany(cascade = { CascadeType.MERGE})
     @JoinTable(name = "game_genres",
             joinColumns = @JoinColumn(name = "game_id",nullable = false),
@@ -45,6 +46,7 @@ public class Game {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
+    @Builder.Default
     @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "developer_studio_id")
     private Set<DeveloperStudio> developerStudios = new LinkedHashSet<>();

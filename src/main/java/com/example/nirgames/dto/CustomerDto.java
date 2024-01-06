@@ -14,5 +14,6 @@ public class CustomerDto {
     private Long id;
     private String username;
     private String password;
+    @Builder.Default
     private Set<GameDto> favoriteGames = new LinkedHashSet<>();
 }
