@@ -131,9 +131,6 @@ public class dbConfig {
 
     @Bean
     public void initRoles() {
-        roleRepository.save(new Role("ROLE_ADMIN"));
-        roleRepository.save((new Role("ROLE_USER")));
-
     }
 
     @Bean
@@ -145,12 +142,12 @@ public class dbConfig {
                         gameService.findByTitle("Witcher 3").get()
                 ))
                 .password(passwordEncoder.encode("roma"))
-                .roles(Set.of(roleRepository.findByRole("ROLE_ADMIN").get()))
+                .role(Role.ADMIN)
                 .build());
 
         customerService.save(Customer.builder()
                 .username("Kostya")
-                .roles(Set.of((roleRepository.findByRole("ROLE_ADMIN").get())))
+                .role(Role.USER)
                 .favoriteGames(Set.of(
                         gameService.findByTitle("The Legend of Zelda: Breath of the Wild").get(),
                         gameService.findByTitle("Witcher 3").get()

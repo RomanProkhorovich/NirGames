@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchProfile;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -26,12 +28,10 @@ public class Customer {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Builder.Default
-    @JoinTable(name = "customer_roles",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private Set<Role> roles = new LinkedHashSet<>();
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", length = 50)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private Role role;
 
     @NonNull
     @Column(unique = true,nullable = false)
