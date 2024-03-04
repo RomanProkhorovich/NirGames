@@ -1,5 +1,6 @@
 package com.example.nirgames.service;
 
+import com.example.nirgames.Util.Validator;
 import com.example.nirgames.model.Genre;
 import com.example.nirgames.model.Review;
 import com.example.nirgames.repository.ReviewRepository;
@@ -13,8 +14,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository repository;
-
-
     public List<Review> findAll(){
         return repository.findAll();
     }
@@ -27,6 +26,7 @@ public class ReviewService {
         return repository.findById(id);
     }
     public Review save(Review review){
+        Validator.validate(review.getText());
         return repository.save(review);
     }
 

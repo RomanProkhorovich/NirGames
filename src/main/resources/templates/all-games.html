@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>All games</title>
+    <link th:href="@{css/main.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:insert="nav::navbar"></div>
-<th:block th:each="game: ${model}">
-    <h2 th:text="${game.getTitle()}"></h2>
-    <p th:text="${game.getReleasedAt()}"></p>
-    <p th:text="${game.getPublisherDto().getName()}"></p>
-    <br>
-</th:block>
+<div class="game_holder">
+    <th:block th:each="game: ${model}">
+        <div class="game_item">
+            <a th:href="@{/games(title=${game.getTitle()})}">
+                <h2 th:text="${game.getTitle()}"></h2>
+                <p th:text="${game.getReleasedAt()}"></p>
+                <p th:text="${game.getPublisherDto().getName()}"></p>
+            </a>
+        </div>
+    </th:block>
+</div>
 </body>
 </html>

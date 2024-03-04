@@ -2,7 +2,8 @@ package com.example.nirgames.controller;
 
 import com.example.nirgames.dto.CustomerDto;
 import com.example.nirgames.dto.GameDto;
-import com.example.nirgames.mapper.Mapper;
+import com.example.nirgames.mapper.CustomerMapper;
+import com.example.nirgames.mapper.GameMapper;
 import com.example.nirgames.model.Customer;
 import com.example.nirgames.model.Game;
 import com.example.nirgames.service.CustomerService;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class UserController {
     private final CustomerService customerService;
-    private final Mapper<Customer, CustomerDto> customerDtoMapper;
-    private final Mapper<Game, GameDto> gameMapper;
+    private final CustomerMapper customerDtoMapper;
+    private final GameMapper gameMapper;
 
     @GetMapping
     public String getUserInfo(@AuthenticationPrincipal UserDetails userDetails,

@@ -5,7 +5,7 @@
     <title>Favorite games</title>
 </head>
 <body>
-
+  <div th:insert="nav::navbar"></div>
 <th:block th:each="game: ${model}">
   <h2 th:text="${game.getTitle()}"></h2>
   <p th:text="${game.getReleasedAt()}"></p>

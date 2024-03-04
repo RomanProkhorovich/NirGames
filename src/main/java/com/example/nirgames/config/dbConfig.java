@@ -1,7 +1,6 @@
 package com.example.nirgames.config;
 
 import com.example.nirgames.model.*;
-import com.example.nirgames.repository.RoleRepository;
 import com.example.nirgames.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +20,6 @@ public class dbConfig {
     private final ReviewService reviewService;
     private final CustomerService customerService;
     private final DeveloperStudioService developerStudioService;
-    private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Bean

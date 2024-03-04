@@ -2,7 +2,8 @@ package com.example.nirgames.controller;
 
 import com.example.nirgames.dto.CommentDto;
 import com.example.nirgames.exceptions.ReviewNotFoundException;
-import com.example.nirgames.mapper.Mapper;
+import com.example.nirgames.mapper.CommentMapper;
+import com.example.nirgames.mapper.GameMapper;
 import com.example.nirgames.model.Comment;
 import com.example.nirgames.model.Review;
 import com.example.nirgames.service.CommentService;
@@ -27,7 +28,7 @@ public class CommentController {
     private final ReviewService reviewService;
     private final CustomerService customerService;
 
-    private final Mapper<Comment, CommentDto> commentToDto;
+    private final CommentMapper commentToDto;
 
     @GetMapping
     public String getAllCommentsByReview(Model model, @PathVariable String title) {

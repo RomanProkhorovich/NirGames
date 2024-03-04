@@ -5,18 +5,14 @@
     <title>nav</title>
 </head>
 <body>
-<div th:fragment="navbar" style="display: flex; justify-content: space-around">
+<form name="logoutForm" method="post" th:action="@{/sec/logout}"></form>
+<div class="nav_bar" th:fragment="navbar">
 
-    <a href="/games">Игры</a>
-    <a href="/reviews">Статьи</a>
-    <a href="/user">Личный кабинет</a>
-
-
-    <a href="javascript: document.logoutForm.submit()" role="button"> Logout</a>
-
-    <form name="logoutForm" method="post" th:action="@{/sec/logout}">
-
-    </form>
+    <a class="nav_bar_item" href="/games">Игры</a>
+    <a class="nav_bar_item" href="/reviews">Статьи</a>
+    <a class="nav_bar_item" href="/user">Личный кабинет</a>
+    <a class="nav_bar_item" href="javascript: document.logoutForm.submit()" role="button"> Logout</a>
 </div>
+
 </body>
 </html>

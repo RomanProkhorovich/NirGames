@@ -3,7 +3,8 @@ package com.example.nirgames.controller;
 import com.example.nirgames.dto.GameDto;
 import com.example.nirgames.dto.ReviewDto;
 import com.example.nirgames.exceptions.ArgNotFoundException;
-import com.example.nirgames.mapper.Mapper;
+import com.example.nirgames.mapper.GameMapper;
+import com.example.nirgames.mapper.ReviewMapper;
 import com.example.nirgames.model.Review;
 import com.example.nirgames.service.CustomerService;
 import com.example.nirgames.service.ReviewService;
@@ -23,14 +24,13 @@ import java.util.NoSuchElementException;
 public class ReviewController {
     private final ReviewService reviewService;
     private final CustomerService customerService;
-    private final Mapper<ReviewDto, Review> dtoToReview;
-    private final Mapper<Review, ReviewDto> reviewToDto;
+    private final ReviewMapper reviewMapper;
 
     @GetMapping
     public String getAll(Model model) {
         model.addAttribute("model", reviewService.findAll()
                 .stream()
-                .map(reviewToDto::map));
+                .map(reviewMapper::map));
         return "all_reviews";
     }
 
@@ -38,7 +38,7 @@ public class ReviewController {
     public String findByTitle(@PathVariable String title, Model model) {
         var review = reviewService.findByTitle(title).orElseThrow(() ->
                 new NoSuchElementException("Статьи с таким именем нет!"));
-        model.addAttribute("rev", reviewToDto.map(review));
+        model.addAttribute("rev", reviewMapper.map(review));
         return "review";
     }
 
@@ -55,7 +55,7 @@ public class ReviewController {
         var username = userDetails.getUsername();
         var customer = customerService.findByUsername(username)
                 .orElseThrow(AuthenticationException::new);
-        var review = dtoToReview.map(reviewDto);
+        var review = reviewMapper.map(reviewDto);
         review.setAuthor(customer);
         review = reviewService.save(review);
         model.addAttribute("rev", review);

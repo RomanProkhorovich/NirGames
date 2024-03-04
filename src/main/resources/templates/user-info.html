@@ -5,7 +5,6 @@
     <title>user info</title>
 </head>
 <body>
-<<h2>Hello,</h2>
 <h1 th:text="${user.getUsername()}"></h1>
 <th:block th:each="game: ${user.getFavoriteGames()}">
 <h1 th:text="${user.getFavoriteGames()}"></h1>
