@@ -23,6 +23,8 @@ public class Customer {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    private String firstname;
+    private String lastname;
 
     @NonNull
     @Column(nullable = false)
@@ -37,11 +39,11 @@ public class Customer {
     @Column(unique = true,nullable = false)
     private String username;
 
-    @OneToMany(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "customer_id")
-    @Builder.Default
+    @ManyToMany
+    @JoinTable(name = "customer_games",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "games_id"))
     private Set<Game> favoriteGames = new LinkedHashSet<>();
-
 
     @Override
     public boolean equals(Object o) {

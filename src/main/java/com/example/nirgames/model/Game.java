@@ -47,9 +47,18 @@ public class Game {
     private Publisher publisher;
 
     @Builder.Default
-    @OneToMany(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "developer_studio_id")
+    @ManyToMany(cascade = CascadeType.MERGE)
     private Set<DeveloperStudio> developerStudios = new LinkedHashSet<>();
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "rec_system_requries_id")
+    private SystemRequries recSystemRequries;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "min_system_requries_id")
+    private SystemRequries minSystemRequries;
+
+    private String imgPath;
 
     @Override
     public boolean equals(Object o) {

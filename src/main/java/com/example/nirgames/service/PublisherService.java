@@ -5,12 +5,16 @@ import com.example.nirgames.repository.PublisherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PublisherService {
     private final PublisherRepository repository;
+    public List<Publisher> findAll(){
+        return repository.findAll();
+    }
 
     public Optional<Publisher> findByName(String name){
         return repository.findByName(name);

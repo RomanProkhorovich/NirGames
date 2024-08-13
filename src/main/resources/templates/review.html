@@ -10,5 +10,12 @@
 <p th:text="${rev.getAuthor().getUsername()}"></p>
 <p th:text="${rev.getGame().getTitle()}"></p>
 <p th:text="${rev.getText()}"></p>
+<div class="comments">
+    <th:block th:each="comment: ${game.getComments()}">
+        <h2 th:text="${comment.getCustimerDto().getName()}"></h2>
+        <h2 th:text="${comment.getText()}"></h2>
+  <br>
+</th:block>
+</div>
 </body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +39,9 @@ public class CustomerService  {
     public boolean isUniqueCustomer(String username){
         return !customerRepository.existsCustomersByUsername(username);
     }
-
+    @Transactional
+    public void addFavoriteGame(Long customerId, Long gameId){
+        customerRepository.insertFavoriteGame(customerId, gameId);
+    }
 
 }

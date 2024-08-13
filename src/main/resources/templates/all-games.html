@@ -13,7 +13,7 @@
             <a th:href="@{/games(title=${game.getTitle()})}">
                 <h2 th:text="${game.getTitle()}"></h2>
                 <p th:text="${game.getReleasedAt()}"></p>
-                <p th:text="${game.getPublisherDto().getName()}"></p>
+                <p th:text="${game.getPublisher.getName()}"></p>
             </a>
         </div>
     </th:block>

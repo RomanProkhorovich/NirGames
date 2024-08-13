@@ -3,7 +3,7 @@ package com.example.nirgames.config;
 import com.example.nirgames.model.*;
 import com.example.nirgames.service.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Configuration
 @RequiredArgsConstructor
-public class dbConfig {
+public class dbConfig implements CommandLineRunner {
     private final GenreService genreService;
     private final GameService gameService;
     private final PublisherService publisherService;
@@ -22,7 +22,6 @@ public class dbConfig {
     private final DeveloperStudioService developerStudioService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Bean
     public void initGenres() {
         genreService.save(new Genre("Action"));
         genreService.save(new Genre("RPG"));
@@ -32,7 +31,6 @@ public class dbConfig {
         genreService.save(new Genre("Racing"));
     }
 
-    @Bean
     public void initDeveloperStudio() {
         developerStudioService.save(DeveloperStudio.builder()
                 .studioName("FromSoftware")
@@ -54,6 +52,11 @@ public class dbConfig {
                 .creationAt(Year.of(1986))
                 .build());
 
+        developerStudioService.save(DeveloperStudio.builder()
+                .studioName("Digital Extremes")
+                .creationAt(Year.of(1986))
+                .build());
+
 
         developerStudioService.save(DeveloperStudio.builder()
                 .studioName("Nintendo")
@@ -61,13 +64,15 @@ public class dbConfig {
                 .build());
     }
 
-    @Bean
     public void initPublisher() {
+        publisherService.save(Publisher.builder().name("Digital Extremes").build());
         publisherService.save(Publisher.builder()
                 .name("Ubisoft").build());
 
         publisherService.save(Publisher.builder()
                 .name("Electronic Arts").build());
+        publisherService.save(Publisher.builder()
+                .name("Bandai Namco").build());
 
         publisherService.save(Publisher.builder()
                 .name("Playstation Studio").build());
@@ -80,7 +85,6 @@ public class dbConfig {
                 .name("CD Project Red").build());
     }
 
-    @Bean
     public void initGames() {
         gameService.save(Game.builder()
                 .title("Witcher 3")
@@ -93,6 +97,7 @@ public class dbConfig {
                 .genres(Set.of(
                         genreService.findByTitle("Action").get(),
                         genreService.findByTitle("RPG").get()))
+                .imgPath("4a2573f4e3fd.jpg")
                 .build());
         gameService.save(Game.builder()
                 .title("The Legend of Zelda: Breath of the Wild")
@@ -103,6 +108,7 @@ public class dbConfig {
                         genreService.findByTitle("RPG").get(),
                         genreService.findByTitle("Action").get()
                 ))
+                .imgPath("zelda.jpg")
                 .build());
         gameService.save(Game.builder()
                 .title("Bloodborne")
@@ -113,25 +119,59 @@ public class dbConfig {
                         genreService.findByTitle("Action").get(),
                         genreService.findByTitle("Souls-like").get(),
                         genreService.findByTitle("RPG").get()
-                )).build());
+                ))
+                .imgPath("ITjiIA00EH767Frt-UO-tw.jpeg")
+                .build());
 
         gameService.save(Game.builder()
                 .title("Dark Souls 3")
                 .releasedAt(Year.of(2016))
-                .publisher(publisherService.findByName("Playstation Studio").get())
+                .publisher(publisherService.findByName("Bandai Namco").get())
                 .developerStudios(Set.of(developerStudioService.findByStudioName("FromSoftware").get()))
                 .genres(Set.of(
                         genreService.findByTitle("Action").get(),
                         genreService.findByTitle("Souls-like").get(),
                         genreService.findByTitle("RPG").get()
-                )).build());
+                ))
+                .imgPath("m1000x1000.jpg")
+                .build());
+        gameService.save(Game.builder()
+                .title("Dark Souls 2")
+                .releasedAt(Year.of(2014))
+                .publisher(publisherService.findByName("Bandai Namco").get())
+                .developerStudios(Set.of(developerStudioService.findByStudioName("FromSoftware").get()))
+                .genres(Set.of(
+                        genreService.findByTitle("Action").get(),
+                        genreService.findByTitle("Souls-like").get(),
+                        genreService.findByTitle("RPG").get()
+                ))
+                .imgPath("8700dc020d9dad7826c0d8ec9638001b.jpeg")
+                .build());
+        gameService.save(Game.builder()
+                .title("Dark Souls")
+                .releasedAt(Year.of(2011))
+                .publisher(publisherService.findByName("Bandai Namco").get())
+                .developerStudios(Set.of(developerStudioService.findByStudioName("FromSoftware").get()))
+                .genres(Set.of(
+                        genreService.findByTitle("Action").get(),
+                        genreService.findByTitle("Souls-like").get(),
+                        genreService.findByTitle("RPG").get()
+                ))
+                .imgPath("scale_1200.jpg")
+                .build());
+        gameService.save(Game.builder()
+                .title("Warframe")
+                .releasedAt(Year.of(2013))
+                .publisher(publisherService.findByName("Digital Extremes").get())
+                .developerStudios(Set.of(developerStudioService.findByStudioName("Digital Extremes").get()))
+                .genres(Set.of(
+                        genreService.findByTitle("Action").get(),
+                        genreService.findByTitle("RPG").get()
+                ))
+                .imgPath("image.jpg")
+                .build());
     }
 
-    @Bean
-    public void initRoles() {
-    }
-
-    @Bean
     public void initCustomer() {
         customerService.save(Customer.builder()
                 .username("Roma")
@@ -139,6 +179,8 @@ public class dbConfig {
                         gameService.findByTitle("Bloodborne").get(),
                         gameService.findByTitle("Witcher 3").get()
                 ))
+                .firstname("Роман")
+                .lastname("Прохорович")
                 .password(passwordEncoder.encode("roma"))
                 .role(Role.ADMIN)
                 .build());
@@ -154,7 +196,6 @@ public class dbConfig {
                 .build());
     }
 
-    @Bean
     public void initReview() {
         reviewService.save(Review.builder()
                 .author(customerService.findByUsername("Roma").get())
@@ -170,11 +211,16 @@ public class dbConfig {
                 .text("uifertyuiogfdcvbnogiunehguehiuu v uuirehetuieh uerubthb hhhhh hhv4rgy34u n")
                 .build());
 
-        reviewService.save(Review.builder()
-                .author(customerService.findByUsername("Kostya").get())
-                .game(gameService.findByTitle("Bloodborne").get())
-                .title("Hardcore")
-                .text("uifertyre1222222222123344uiogfdcvbnogiunehguehiuu v uuirehetuieh uerubthb hhhhh hhv4rgy34u n")
-                .build());
+
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        initPublisher();
+        initGenres();
+        initDeveloperStudio();
+        initGames();
+        initCustomer();
+        initReview();
     }
 }

@@ -7,12 +7,18 @@ import com.example.nirgames.mapper.GameMapper;
 import com.example.nirgames.model.Customer;
 import com.example.nirgames.model.Game;
 import com.example.nirgames.service.CustomerService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -40,5 +46,16 @@ public class UserController {
         var games=user.getFavoriteGames().stream().map(gameMapper::map);
         model.addAttribute("model",games);
         return "fav-games";
+    }
+    @PostMapping("/add-favorite")
+    public ResponseEntity addFavoriteGame(@RequestBody CustomerGameDto dto){
+        customerService.addFavoriteGame(dto.customerId, dto.gameId);
+        return ResponseEntity.ok(null);
+    }
+
+    @Data
+    private static class CustomerGameDto{
+        Long customerId;
+        Long gameId;
     }
 }

@@ -16,4 +16,6 @@ public class ReviewDto {
     @Builder.Default
     private Set<CommentDto> comments = new LinkedHashSet<>();
     private String title;
+    @Builder.Default
+    private  Integer score = 0;
 }

@@ -3,6 +3,7 @@ package com.example.nirgames.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -22,14 +23,16 @@ public class Review {
     @Column(unique = true,nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10000)
     private String text;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    private Integer score;
+
+    @ManyToOne()
     @JoinColumn(name = "author_id")
     private Customer author;
 
@@ -37,6 +40,9 @@ public class Review {
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "review_id")
     private Set<Comment> comments = new LinkedHashSet<>();
+
+    @Builder.Default
+    private Date createdAt = new Date();
 
 
     public void addComment(Comment comment){

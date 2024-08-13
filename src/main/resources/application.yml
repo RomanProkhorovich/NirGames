@@ -3,7 +3,18 @@ spring:
     username: postgres
     password: 123
     url: jdbc:postgresql://localhost:5432/NIR
+    driverClassName: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
 

@@ -22,7 +22,7 @@ public class Comment {
     private String text;
 
     @NonNull
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne()
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
